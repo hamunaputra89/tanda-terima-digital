@@ -6,7 +6,7 @@ import { HandoverRecord } from '../types/receipt';
  */
 export function exportRecordsToCsv(records: HandoverRecord[], filename = 'Riwayat_Serah_Terima_Ekspedisi.csv'): void {
   if (records.length === 0) {
-    alert('Tidak ada data riwayat untuk diunduh.');
+    console.warn('Tidak ada data riwayat untuk diunduh.');
     return;
   }
 

@@ -60,8 +60,8 @@ export function handleFirestoreError(
     operationType,
     path,
   };
-  console.error('Firestore Error: ', JSON.stringify(errInfo));
-  throw new Error(JSON.stringify(errInfo));
+  console.warn('Firestore Notice: ', JSON.stringify(errInfo));
+  return errInfo;
 }
 
 const HANDOVER_COLLECTION = 'handover_records';
@@ -72,7 +72,7 @@ const PROFILE_COLLECTION = 'warehouse_profiles';
  */
 export async function saveHandoverRecordToFirestore(
   record: HandoverRecord
-): Promise<void> {
+): Promise<boolean> {
   const docRef = doc(db, HANDOVER_COLLECTION, record.id);
   try {
     await setDoc(docRef, {
@@ -80,8 +80,10 @@ export async function saveHandoverRecordToFirestore(
       syncedToCloud: true,
       updatedAt: new Date().toISOString(),
     });
+    return true;
   } catch (error) {
     handleFirestoreError(error, OperationType.WRITE, `${HANDOVER_COLLECTION}/${record.id}`);
+    return false;
   }
 }
 
@@ -110,11 +112,8 @@ export function subscribeToHandoverRecords(
       onRecords(records);
     },
     (error) => {
-      try {
-        handleFirestoreError(error, OperationType.LIST, HANDOVER_COLLECTION);
-      } catch (e: any) {
-        if (onError) onError(e);
-      }
+      const info = handleFirestoreError(error, OperationType.LIST, HANDOVER_COLLECTION);
+      if (onError) onError(new Error(info.error));
     }
   );
 }
@@ -124,12 +123,14 @@ export function subscribeToHandoverRecords(
  */
 export async function deleteHandoverRecordFromFirestore(
   recordId: string
-): Promise<void> {
+): Promise<boolean> {
   const docRef = doc(db, HANDOVER_COLLECTION, recordId);
   try {
     await deleteDoc(docRef);
+    return true;
   } catch (error) {
     handleFirestoreError(error, OperationType.DELETE, `${HANDOVER_COLLECTION}/${recordId}`);
+    return false;
   }
 }
 
@@ -139,15 +140,17 @@ export async function deleteHandoverRecordFromFirestore(
 export async function saveWarehouseProfileToFirestore(
   profile: WarehouseProfile,
   profileId: string = 'default_profile'
-): Promise<void> {
+): Promise<boolean> {
   const docRef = doc(db, PROFILE_COLLECTION, profileId);
   try {
     await setDoc(docRef, {
       ...profile,
       updatedAt: new Date().toISOString(),
     });
+    return true;
   } catch (error) {
     handleFirestoreError(error, OperationType.WRITE, `${PROFILE_COLLECTION}/${profileId}`);
+    return false;
   }
 }
 

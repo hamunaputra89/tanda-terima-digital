@@ -22,6 +22,7 @@ export async function exportElementToPdf(
     const canvas = await html2canvas(element, {
       scale: 2, // High resolution (300 DPI equivalent)
       useCORS: true,
+      allowTaint: true,
       logging: false,
       backgroundColor: '#ffffff',
       windowWidth: element.scrollWidth,
@@ -98,6 +99,7 @@ export function printElementSafely(elementId: string): void {
     <html lang="id">
       <head>
         <meta charset="utf-8">
+        <base href="${window.location.href}">
         <title>Tanda Terima Ekspedisi</title>
         ${styles}
         <style>

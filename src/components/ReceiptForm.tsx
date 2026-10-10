@@ -133,7 +133,7 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
   const [date, setDate] = useState(todayStr);
   const [time, setTime] = useState(currentTimeStr);
 
-  // Expedition & Courier
+  // Expedition & Courier (Clean inputs ready for direct entry)
   const [expedition, setExpedition] = useState<ExpeditionName>('J&T Express');
   const [expeditionCustomName, setExpeditionCustomName] = useState('');
   const [courierName, setCourierName] = useState('');
@@ -149,25 +149,15 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
   const [notes, setNotes] = useState(warehouseProfile.defaultNotes || '');
   const [saveAsDefaultProfile, setSaveAsDefaultProfile] = useState(true);
 
-  // Supply Items
+  // Supply Items - Clean starter item
   const [items, setItems] = useState<HandoverSupplyItem[]>([
     {
       id: '1',
       category: 'Label Thermal',
       name: 'Label Thermal 100x150 mm',
       sizeOrSpec: '100x150 mm (Rol)',
-      quantity: 5,
+      quantity: 1,
       unit: 'Rol',
-      condition: 'Lengkap & Baik',
-      notes: '',
-    },
-    {
-      id: '2',
-      category: 'Plastik Polymailer',
-      name: 'Plastik Polymailer 25x35 cm',
-      sizeOrSpec: '25x35 cm (100 lbr/pack)',
-      quantity: 10,
-      unit: 'Pack',
       condition: 'Lengkap & Baik',
       notes: '',
     },
@@ -176,6 +166,60 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
   const [status, setStatus] = useState<'Diterima Lengkap' | 'Diterima Sebagian' | 'Ada Catatan Khusus'>(
     'Diterima Lengkap'
   );
+
+  // Quick fill sample for test or quick demo
+  const handleFillSample = () => {
+    setExpedition('J&T Express');
+    setCourierName('Pak Joko');
+    setCourierPhone('0812-9876-5432');
+    setVehiclePlate('B 1234 JNT');
+    setReferenceNumber('SJ-JT-8819');
+    setItems([
+      {
+        id: '1',
+        category: 'Label Thermal',
+        name: 'Label Thermal 100x150 mm',
+        sizeOrSpec: '100x150 mm (500 lbr/rol)',
+        quantity: 5,
+        unit: 'Rol',
+        condition: 'Lengkap & Baik',
+        notes: '',
+      },
+      {
+        id: '2',
+        category: 'Plastik Polymailer',
+        name: 'Plastik Polymailer 25x35 cm',
+        sizeOrSpec: '25x35 cm (Ukuran M)',
+        quantity: 10,
+        unit: 'Pack',
+        condition: 'Lengkap & Baik',
+        notes: '',
+      },
+    ]);
+    setNotes('Perlengkapan diterima tersegel baik dan jumlah sesuai fisik.');
+  };
+
+  // Quick clear
+  const handleResetForm = () => {
+    setCourierName('');
+    setCourierPhone('');
+    setVehiclePlate('');
+    setReferenceNumber('');
+    setCourierSignature('');
+    setReceiverSignature('');
+    setItems([
+      {
+        id: Date.now().toString(),
+        category: 'Label Thermal',
+        name: 'Label Thermal 100x150 mm',
+        sizeOrSpec: '100x150 mm (Rol)',
+        quantity: 1,
+        unit: 'Rol',
+        condition: 'Lengkap & Baik',
+        notes: '',
+      },
+    ]);
+  };
 
   // Signatures
   const [courierSignature, setCourierSignature] = useState<string>('');
@@ -351,13 +395,14 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
         setNotes(warehouseProfile.defaultNotes || '');
         setItems([
           {
-            id: '1',
+            id: Date.now().toString(),
             category: 'Label Thermal',
             name: 'Label Thermal 100x150 mm',
             sizeOrSpec: '100x150 mm (Rol)',
-            quantity: 5,
+            quantity: 1,
             unit: 'Rol',
             condition: 'Lengkap & Baik',
+            notes: '',
           },
         ]);
       }
@@ -391,22 +436,28 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
           </div>
         </div>
 
-        {/* Sync Info Pill */}
-        <div className="flex items-center gap-2">
-          {isAuthenticated ? (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 text-xs font-medium rounded-full border border-emerald-200">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Auto-Sync ke Google Sheets</span>
-            </div>
-          ) : (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 text-amber-700 text-xs font-medium rounded-full border border-amber-200">
-              <span>Mode Lokal (Masuk Google untuk auto-sync)</span>
-            </div>
-          )}
+        {/* Sync Info Pill & Quick Action Tools */}
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={handleFillSample}
+            className="px-2.5 py-1.5 text-xs font-medium text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-lg transition-colors cursor-pointer"
+            title="Isi contoh data cepat untuk demo"
+          >
+            Contoh Demo
+          </button>
+          <button
+            type="button"
+            onClick={handleResetForm}
+            className="px-2.5 py-1.5 text-xs font-medium text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg transition-colors cursor-pointer"
+            title="Kosongkan isian form kurir & barang"
+          >
+            Form Baru
+          </button>
           <button
             type="button"
             onClick={onOpenSettings}
-            className="p-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors text-xs flex items-center gap-1 cursor-pointer border border-slate-200"
+            className="p-1.5 px-2.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors text-xs flex items-center gap-1 cursor-pointer border border-slate-200"
             title="Kelola Profil Gudang & Bawaan"
           >
             <Building className="w-3.5 h-3.5 text-emerald-700" />
@@ -667,16 +718,36 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
                 className="rounded text-emerald-600 focus:ring-emerald-500 w-3.5 h-3.5 cursor-pointer"
               />
               <span className="text-[11px] text-slate-600">
-                Simpan info gudang di atas sebagai profil bawaan untuk pembuatan berikutnya
+                Simpan otomatis info gudang di atas untuk pembuatan berikutnya
               </span>
             </label>
-            <button
-              type="button"
-              onClick={onOpenSettings}
-              className="text-[11px] text-emerald-700 hover:text-emerald-800 hover:underline font-medium cursor-pointer"
-            >
-              Pengaturan Profil Gudang &rarr;
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  if (onUpdateProfile) {
+                    onUpdateProfile({
+                      ...warehouseProfile,
+                      warehouseName: warehouseName.trim(),
+                      warehouseAddress: warehouseLocation.trim(),
+                      contactPhone: warehousePhone.trim(),
+                      defaultReceiverName: receiverName.trim(),
+                    });
+                  }
+                }}
+                className="px-2.5 py-1 text-[11px] font-semibold text-emerald-800 bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 rounded-md transition-colors cursor-pointer"
+                title="Simpan perubahan nama dan alamat gudang ini sebagai bawaan"
+              >
+                Simpan Profil Ini
+              </button>
+              <button
+                type="button"
+                onClick={onOpenSettings}
+                className="text-[11px] text-emerald-700 hover:text-emerald-800 hover:underline font-medium cursor-pointer"
+              >
+                Pengaturan Gudang &rarr;
+              </button>
+            </div>
           </div>
         </div>
 

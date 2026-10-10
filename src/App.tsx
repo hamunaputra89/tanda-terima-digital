@@ -150,12 +150,12 @@ export default function App() {
       }
     );
 
-    // Load cloud warehouse profile if exists
+    // Load cloud warehouse profile if exists and local hasn't been set
     loadWarehouseProfileFromFirestore().then((cloudProf) => {
-      if (cloudProf) {
+      if (cloudProf && !localStorage.getItem(LOCAL_STORAGE_PROFILE)) {
         setWarehouseProfile(cloudProf);
       }
-    });
+    }).catch(() => {});
 
     return () => {
       unsubscribeFirestore();
@@ -545,7 +545,7 @@ export default function App() {
       )}
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className={`flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 ${selectedReceipt ? 'print:hidden' : ''}`}>
         {/* Navigation Tabs */}
         <div className="flex items-center gap-2 border-b border-slate-200 mb-6 print:hidden">
           <button
