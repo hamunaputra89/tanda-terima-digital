@@ -1,0 +1,126 @@
+{
+  "entities": {
+    "HandoverRecord": {
+      "title": "HandoverRecord",
+      "description": "Logistics supplies handover receipt document between courier expedition and warehouse.",
+      "type": "object",
+      "properties": {
+        "handoverNumber": {
+          "type": "string",
+          "description": "Unique handover receipt number e.g. BAST-EXP-20261010-001"
+        },
+        "date": {
+          "type": "string",
+          "description": "Date of handover YYYY-MM-DD"
+        },
+        "time": {
+          "type": "string",
+          "description": "Time of handover"
+        },
+        "expedition": {
+          "type": "string",
+          "description": "Expedition courier name"
+        },
+        "courierName": {
+          "type": "string",
+          "description": "Courier or driver full name"
+        },
+        "courierPhone": {
+          "type": "string",
+          "description": "Courier contact number"
+        },
+        "vehiclePlate": {
+          "type": "string",
+          "description": "Courier vehicle license plate"
+        },
+        "referenceNumber": {
+          "type": "string",
+          "description": "Delivery order or waybill number from expedition"
+        },
+        "warehouseName": {
+          "type": "string",
+          "description": "Receiving warehouse or store name"
+        },
+        "warehouseLocation": {
+          "type": "string",
+          "description": "Warehouse location address"
+        },
+        "receiverName": {
+          "type": "string",
+          "description": "Warehouse staff PIC receiving the supplies"
+        },
+        "totalQuantity": {
+          "type": "number",
+          "description": "Total quantity of packaging items received"
+        },
+        "items": {
+          "type": "array",
+          "description": "Itemized list of logistics supplies"
+        },
+        "status": {
+          "type": "string",
+          "description": "Handover status (Diterima Lengkap, Diterima Sebagian, Ada Catatan Khusus)"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Additional notes"
+        },
+        "courierSignature": {
+          "type": "string",
+          "description": "Courier digital signature data URL"
+        },
+        "receiverSignature": {
+          "type": "string",
+          "description": "Receiver staff digital signature data URL"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp ISO string"
+        }
+      },
+      "required": ["handoverNumber", "date", "expedition", "courierName", "warehouseName", "receiverName", "totalQuantity", "status"]
+    },
+    "WarehouseProfile": {
+      "title": "WarehouseProfile",
+      "description": "Warehouse default identity profile.",
+      "type": "object",
+      "properties": {
+        "warehouseName": {
+          "type": "string",
+          "description": "Warehouse or store name"
+        },
+        "warehouseAddress": {
+          "type": "string",
+          "description": "Warehouse address"
+        },
+        "contactPhone": {
+          "type": "string",
+          "description": "Warehouse phone number"
+        },
+        "defaultReceiverName": {
+          "type": "string",
+          "description": "Default receiver staff name"
+        },
+        "defaultNotes": {
+          "type": "string",
+          "description": "Default notes for receipts"
+        }
+      },
+      "required": ["warehouseName"]
+    }
+  },
+  "firestore": {
+    "/handover_records/{recordId}": {
+      "schema": {
+        "$ref": "#/entities/HandoverRecord"
+      },
+      "description": "Stores all expedition handover receipts synced in real-time."
+    },
+    "/warehouse_profiles/{profileId}": {
+      "schema": {
+        "$ref": "#/entities/WarehouseProfile"
+      },
+      "description": "Stores warehouse configuration profiles."
+    }
+  }
+}

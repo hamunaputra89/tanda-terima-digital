@@ -1,0 +1,8 @@
+{
+  "name": "Tanda Terima Digital & Google Sheets",
+  "description": "Aplikasi berita acara dan tanda terima serah terima perlengkapan ekspedisi (label, plastik, packing) dengan riwayat otomatis tersimpan di Google Sheets.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
