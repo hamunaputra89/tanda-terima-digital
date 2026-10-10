@@ -8,10 +8,21 @@ import {
   User,
 } from 'firebase/auth';
 import { getFirestore, doc, getDocFromServer } from 'firebase/firestore';
-import firebaseConfig from '../../firebase-applet-config.json';
+import rawFirebaseConfig from '@/firebase-applet-config.json';
+
+const defaultFallbackConfig = {
+  projectId: "gen-lang-client-0943318734",
+  appId: "1:1005270702176:web:db2f5b9d00943259b90b05",
+  apiKey: "AIzaSyAc4nUzY7Y8YyyRXQgRZVzUXjsyKDioRXg",
+  authDomain: "gen-lang-client-0943318734.firebaseapp.com",
+  firestoreDatabaseId: "ai-studio-tandaterimadigit-a3306061-5383-4cf6-95b1-23056f686c5c",
+  storageBucket: "gen-lang-client-0943318734.firebasestorage.app",
+  messagingSenderId: "1005270702176",
+};
 
 export const TARGET_USER_EMAIL = 'hamunaputra89@gmail.com';
 
+const firebaseConfig = { ...defaultFallbackConfig, ...(rawFirebaseConfig || {}) };
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
