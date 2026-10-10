@@ -26,8 +26,20 @@ const firebaseConfig = { ...defaultFallbackConfig, ...(rawFirebaseConfig || {}) 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
-// Initialize Firestore database using the configured database ID
-export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+// Initialize Firestore database with safety fallback
+let dbInstance: any;
+try {
+  dbInstance = firebaseConfig.firestoreDatabaseId
+    ? getFirestore(app, firebaseConfig.firestoreDatabaseId)
+    : getFirestore(app);
+} catch (err) {
+  try {
+    dbInstance = getFirestore(app);
+  } catch (fallbackErr) {
+    console.warn('Firestore initialization notice:', fallbackErr);
+  }
+}
+export const db = dbInstance;
 
 export const provider = new GoogleAuthProvider();
 // Workspace scopes for Google Sheets and Drive files

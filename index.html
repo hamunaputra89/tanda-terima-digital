@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,6 +9,24 @@
     <meta property="og:description" content="Aplikasi berita acara dan tanda terima serah terima perlengkapan ekspedisi (label, plastik, packing) dengan riwayat otomatis tersimpan di Google Sheets." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      // 1. Fix missing trailing slash on GitHub Pages so relative assets never 404
+      if (window.location.hostname.endsWith('github.io') && !window.location.pathname.endsWith('/') && !window.location.pathname.endsWith('.html')) {
+        window.location.replace(window.location.pathname + '/' + window.location.search + window.location.hash);
+      }
+      // 2. Fallback: if served directly from raw GitHub Pages root without build step, redirect to /docs/ bundle
+      (function() {
+        if (window.location.hostname.endsWith('github.io') && !window.location.pathname.includes('/docs/')) {
+          window.addEventListener('DOMContentLoaded', function() {
+            var isBuilt = Boolean(document.querySelector('script[src*="assets/index"]') || document.querySelector('link[href*="assets/index"]'));
+            if (!isBuilt) {
+              var cleanPath = window.location.pathname.endsWith('/') ? window.location.pathname : window.location.pathname + '/';
+              window.location.replace(cleanPath + 'docs/' + window.location.search + window.location.hash);
+            }
+          });
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

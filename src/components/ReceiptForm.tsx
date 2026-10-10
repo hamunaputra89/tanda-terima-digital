@@ -149,13 +149,13 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
   const [notes, setNotes] = useState(warehouseProfile.defaultNotes || '');
   const [saveAsDefaultProfile, setSaveAsDefaultProfile] = useState(true);
 
-  // Supply Items - Clean starter item
+  // Supply Items - Clean starter item (ready for real user input)
   const [items, setItems] = useState<HandoverSupplyItem[]>([
     {
       id: '1',
       category: 'Label Thermal',
-      name: 'Label Thermal 100x150 mm',
-      sizeOrSpec: '100x150 mm (Rol)',
+      name: '',
+      sizeOrSpec: '',
       quantity: 1,
       unit: 'Rol',
       condition: 'Lengkap & Baik',
@@ -166,38 +166,6 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
   const [status, setStatus] = useState<'Diterima Lengkap' | 'Diterima Sebagian' | 'Ada Catatan Khusus'>(
     'Diterima Lengkap'
   );
-
-  // Quick fill sample for test or quick demo
-  const handleFillSample = () => {
-    setExpedition('J&T Express');
-    setCourierName('Pak Joko');
-    setCourierPhone('0812-9876-5432');
-    setVehiclePlate('B 1234 JNT');
-    setReferenceNumber('SJ-JT-8819');
-    setItems([
-      {
-        id: '1',
-        category: 'Label Thermal',
-        name: 'Label Thermal 100x150 mm',
-        sizeOrSpec: '100x150 mm (500 lbr/rol)',
-        quantity: 5,
-        unit: 'Rol',
-        condition: 'Lengkap & Baik',
-        notes: '',
-      },
-      {
-        id: '2',
-        category: 'Plastik Polymailer',
-        name: 'Plastik Polymailer 25x35 cm',
-        sizeOrSpec: '25x35 cm (Ukuran M)',
-        quantity: 10,
-        unit: 'Pack',
-        condition: 'Lengkap & Baik',
-        notes: '',
-      },
-    ]);
-    setNotes('Perlengkapan diterima tersegel baik dan jumlah sesuai fisik.');
-  };
 
   // Quick clear
   const handleResetForm = () => {
@@ -211,8 +179,8 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
       {
         id: Date.now().toString(),
         category: 'Label Thermal',
-        name: 'Label Thermal 100x150 mm',
-        sizeOrSpec: '100x150 mm (Rol)',
+        name: '',
+        sizeOrSpec: '',
         quantity: 1,
         unit: 'Rol',
         condition: 'Lengkap & Baik',
@@ -397,8 +365,8 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
           {
             id: Date.now().toString(),
             category: 'Label Thermal',
-            name: 'Label Thermal 100x150 mm',
-            sizeOrSpec: '100x150 mm (Rol)',
+            name: '',
+            sizeOrSpec: '',
             quantity: 1,
             unit: 'Rol',
             condition: 'Lengkap & Baik',
@@ -436,16 +404,8 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
           </div>
         </div>
 
-        {/* Sync Info Pill & Quick Action Tools */}
+        {/* Action Tools */}
         <div className="flex flex-wrap items-center gap-2">
-          <button
-            type="button"
-            onClick={handleFillSample}
-            className="px-2.5 py-1.5 text-xs font-medium text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-lg transition-colors cursor-pointer"
-            title="Isi contoh data cepat untuk demo"
-          >
-            Contoh Demo
-          </button>
           <button
             type="button"
             onClick={handleResetForm}
