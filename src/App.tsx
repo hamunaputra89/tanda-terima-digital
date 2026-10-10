@@ -380,40 +380,40 @@ export default function App() {
     <div className="min-h-screen bg-slate-100/70 text-slate-900 flex flex-col font-sans">
       {/* Top Header */}
       <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-2xs print:hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+        <div className="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-13 sm:h-16">
             {/* Logo & App Title */}
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-800 to-teal-600 text-white flex items-center justify-center shadow-xs">
-                <Truck className="w-5 h-5" />
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-emerald-800 to-teal-600 text-white flex items-center justify-center shadow-xs shrink-0">
+                <Truck className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
-              <div>
-                <h1 className="text-base font-bold text-slate-900 tracking-tight leading-tight flex items-center gap-2">
-                  <span>Tanda Terima Serah Terima Ekspedisi</span>
-                  <span className="text-[10px] uppercase font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full flex items-center gap-1">
-                    <Cloud className="w-3 h-3 text-emerald-700" />
-                    Auto-Sync Cloud
+              <div className="min-w-0">
+                <h1 className="text-sm sm:text-base font-bold text-slate-900 tracking-tight leading-tight flex items-center gap-1.5 truncate">
+                  <span className="truncate">Tanda Terima Ekspedisi</span>
+                  <span className="text-[9px] sm:text-[10px] uppercase font-bold bg-emerald-100 text-emerald-800 px-1.5 sm:px-2 py-0.5 rounded-full flex items-center gap-1 shrink-0">
+                    <Cloud className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-700" />
+                    <span className="hidden xs:inline">Auto-Sync</span>
                   </span>
                 </h1>
-                <p className="text-xs text-slate-500 hidden sm:block">
-                  Pencatatan real-time otomatis tersimpan ke cloud tanpa perlu login berulang
+                <p className="text-[11px] text-slate-500 hidden sm:block truncate">
+                  Pencatatan serah terima perlengkapan tersimpan otomatis ke cloud
                 </p>
               </div>
             </div>
 
             {/* Account & Action Bar */}
-            <div className="flex items-center gap-2.5 sm:gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
               {user && !user.isAnonymous ? (
-                <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl p-1.5 pl-2.5 sm:pl-3">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 sm:gap-2 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl p-1 sm:p-1.5 pl-2 sm:pl-3">
+                  <div className="flex items-center gap-1.5">
                     {user.photoURL ? (
                       <img
                         src={user.photoURL}
                         alt={user.displayName || 'User'}
-                        className="w-7 h-7 rounded-full border border-slate-300 object-cover"
+                        className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border border-slate-300 object-cover"
                       />
                     ) : (
-                      <div className="w-7 h-7 rounded-full bg-emerald-700 text-white font-bold text-xs flex items-center justify-center">
+                      <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-emerald-700 text-white font-bold text-[11px] sm:text-xs flex items-center justify-center">
                         {user.displayName ? user.displayName.charAt(0) : 'H'}
                       </div>
                     )}
@@ -428,32 +428,32 @@ export default function App() {
                   </div>
 
                   {token ? (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-800 bg-emerald-100/70 px-2 py-0.5 rounded-md border border-emerald-300">
-                      ● Sheets Aktif
+                    <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-semibold text-emerald-800 bg-emerald-100/70 px-1.5 sm:px-2 py-0.5 rounded-md border border-emerald-300">
+                      ● Sheets
                     </span>
                   ) : (
                     <button
                       type="button"
                       onClick={handleSignIn}
                       disabled={isLoggingIn}
-                      className="px-2.5 py-1 text-[11px] font-semibold bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg shadow-2xs transition-colors cursor-pointer"
+                      className="px-2 sm:px-2.5 py-1 text-[10px] sm:text-[11px] font-semibold bg-emerald-700 hover:bg-emerald-800 text-white rounded-md sm:rounded-lg shadow-2xs transition-colors cursor-pointer"
                       title="Sinkronkan ke Google Sheets di Drive"
                     >
-                      {isLoggingIn ? 'Menghubungkan...' : 'Sinkron Sheets'}
+                      {isLoggingIn ? '...' : 'Sheets'}
                     </button>
                   )}
 
                   <button
                     type="button"
                     onClick={handleLogout}
-                    className="p-1.5 text-slate-400 hover:text-rose-600 rounded-lg hover:bg-white transition-colors cursor-pointer"
+                    className="p-1 sm:p-1.5 text-slate-400 hover:text-rose-600 rounded-md sm:rounded-lg hover:bg-white transition-colors cursor-pointer"
                     title="Keluar dari akun Google"
                   >
-                    <LogOut className="w-4 h-4" />
+                    <LogOut className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </button>
                 </div>
               ) : (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 sm:gap-2">
                   <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-800 text-xs font-medium rounded-xl border border-emerald-200">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                     <span>Auto-Sync Aktif</span>
@@ -461,7 +461,7 @@ export default function App() {
                   <GoogleSignInButton
                     onClick={handleSignIn}
                     loading={isLoggingIn || isInitializingSheets}
-                    label="Hubungkan Google Sheets"
+                    label="Hubungkan Sheets"
                   />
                 </div>
               )}
@@ -469,7 +469,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setShowSettingsModal(true)}
-                className="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 rounded-xl transition-colors cursor-pointer"
+                className="p-1.5 sm:p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 rounded-lg sm:rounded-xl transition-colors cursor-pointer shrink-0"
                 title="Pengaturan Profil Gudang"
               >
                 <Settings className="w-4 h-4" />
@@ -479,28 +479,29 @@ export default function App() {
         </div>
       </header>
 
-      {/* Auto-Sync Status Bar */}
-      <div className="bg-white border-b border-slate-200/80 px-4 sm:px-6 py-2.5 print:hidden">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs">
-          <div className="flex items-center gap-2 flex-wrap">
-            <div className="flex items-center gap-1.5 text-emerald-800 font-medium">
-              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
-              <span>
-                <strong>Auto-Sync Cloud Aktif:</strong> Setiap tanda terima otomatis tersimpan real-time ke database cloud tanpa perlu login.
-              </span>
-            </div>
+      {/* Auto-Sync Status Bar (Compact 1-line on mobile) */}
+      <div className="bg-white border-b border-slate-200/80 px-2.5 sm:px-6 py-1.5 sm:py-2 print:hidden">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 text-[11px] sm:text-xs">
+          <div className="flex items-center gap-1.5 text-emerald-800 font-medium truncate">
+            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0" />
+            <span className="hidden sm:inline">
+              <strong>Auto-Sync Cloud:</strong> Setiap tanda terima otomatis tersimpan real-time ke database cloud.
+            </span>
+            <span className="sm:hidden truncate font-medium">
+              Database Cloud Terhubung
+            </span>
 
             {spreadsheetInfo && token && (
               <>
-                <span className="text-slate-300">&bull;</span>
-                <span className="text-emerald-700 font-medium flex items-center gap-1">
-                  <FileSpreadsheet className="w-3.5 h-3.5" /> Google Sheets: {spreadsheetInfo.title}
+                <span className="text-slate-300 hidden sm:inline">&bull;</span>
+                <span className="text-emerald-700 font-medium items-center gap-1 hidden sm:flex">
+                  <FileSpreadsheet className="w-3.5 h-3.5" /> Sheets: {spreadsheetInfo.title}
                 </span>
               </>
             )}
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {spreadsheetInfo && (
               <a
                 href={spreadsheetInfo.url}
@@ -508,13 +509,14 @@ export default function App() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-1 font-semibold text-emerald-700 hover:text-emerald-800 hover:underline"
               >
-                <span>Buka di Google Sheets</span>
-                <ExternalLink className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Buka di Google Sheets</span>
+                <span className="sm:hidden">Sheets</span>
+                <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
               </a>
             )}
-            <div className="flex items-center gap-1 text-slate-500">
+            <div className="hidden sm:flex items-center gap-1 text-slate-500">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Database Cloud Terproteksi</span>
+              <span>Aman & Terproteksi</span>
             </div>
           </div>
         </div>
@@ -522,9 +524,9 @@ export default function App() {
 
       {/* Toast Notification */}
       {statusToast && (
-        <div className="fixed top-20 right-6 z-50 max-w-md animate-in slide-in-from-top-4 duration-200 print:hidden">
+        <div className="fixed top-16 sm:top-20 right-3 sm:right-6 left-3 sm:left-auto z-50 max-w-md animate-in slide-in-from-top-4 duration-200 print:hidden">
           <div
-            className={`p-3.5 rounded-xl shadow-lg border text-xs font-medium flex items-center gap-2.5 ${
+            className={`p-3 rounded-xl shadow-lg border text-xs font-medium flex items-center gap-2 ${
               statusToast.type === 'success'
                 ? 'bg-emerald-800 text-white border-emerald-700'
                 : statusToast.type === 'error'
@@ -545,32 +547,36 @@ export default function App() {
       )}
 
       {/* Main Content Area */}
-      <main className={`flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 ${selectedReceipt ? 'print:hidden' : ''}`}>
-        {/* Navigation Tabs */}
-        <div className="flex items-center gap-2 border-b border-slate-200 mb-6 print:hidden">
+      <main className={`flex-1 max-w-7xl w-full mx-auto px-2 sm:px-6 lg:px-8 py-2.5 sm:py-6 ${selectedReceipt ? 'print:hidden' : ''}`}>
+        {/* Navigation Tabs - Sleek segmented control */}
+        <div className="flex items-center gap-1 sm:gap-2 border-b border-slate-200 mb-3 sm:mb-6 print:hidden">
           <button
             type="button"
             onClick={() => setActiveTab('create')}
-            className={`inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold border-b-2 transition-all cursor-pointer ${
+            className={`inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 sm:py-2.5 text-xs font-bold border-b-2 transition-all cursor-pointer ${
               activeTab === 'create'
                 ? 'border-emerald-700 text-emerald-800 bg-white rounded-t-lg'
                 : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
-            <Package className="w-4 h-4" />
-            <span>Form Serah Terima (BAST)</span>
+            <Package className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span>Form BAST</span>
           </button>
+
           <button
             type="button"
             onClick={() => setActiveTab('history')}
-            className={`inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold border-b-2 transition-all cursor-pointer ${
+            className={`inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 sm:py-2.5 text-xs font-bold border-b-2 transition-all cursor-pointer ${
               activeTab === 'history'
                 ? 'border-emerald-700 text-emerald-800 bg-white rounded-t-lg'
                 : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
-            <History className="w-4 h-4" />
-            <span>Riwayat & Spreadsheet ({receipts.length})</span>
+            <History className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span>Riwayat</span>
+            <span className="ml-0.5 text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-slate-100 text-slate-700">
+              {receipts.length}
+            </span>
           </button>
         </div>
 

@@ -32,8 +32,8 @@ export const BusinessSettingsModal: React.FC<BusinessSettingsModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 border border-slate-100 my-auto animate-in fade-in zoom-in-95 duration-150">
+    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-2.5 sm:p-4 overflow-y-auto">
+      <div className="bg-white rounded-xl sm:rounded-2xl shadow-2xl max-w-lg w-full p-3.5 sm:p-6 border border-slate-100 my-auto animate-in fade-in zoom-in-95 duration-150">
         <div className="flex items-center justify-between pb-4 border-b border-slate-100">
           <div className="flex items-center gap-2.5">
             <div className="p-2 bg-emerald-100 text-emerald-800 rounded-xl">

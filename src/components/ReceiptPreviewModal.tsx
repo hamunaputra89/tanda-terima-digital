@@ -113,25 +113,25 @@ export const ReceiptPreviewModal: React.FC<ReceiptPreviewModalProps> = ({
   return (
     <div className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto print:p-0 print:bg-white print:static print:block">
       <div className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full border border-slate-200 overflow-hidden my-auto flex flex-col max-h-[92vh] print:max-h-none print:shadow-none print:border-none print:rounded-none">
-        {/* Modal Action Bar */}
-        <div className="px-5 py-3.5 bg-slate-900 text-white flex flex-wrap items-center justify-between gap-3 shrink-0 print:hidden">
-          <div className="flex items-center gap-2">
-            <FileCheck2 className="w-5 h-5 text-emerald-400" />
-            <span className="font-semibold text-sm">Pratinjau Dokumen BAST Ekspedisi</span>
+        {/* Modal Action Bar (Compact on mobile) */}
+        <div className="px-3 sm:px-5 py-2.5 sm:py-3.5 bg-slate-900 text-white flex items-center justify-between gap-2 shrink-0 print:hidden">
+          <div className="flex items-center gap-1.5 min-w-0">
+            <FileCheck2 className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 shrink-0" />
+            <span className="font-semibold text-xs sm:text-sm truncate">Dokumen BAST</span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             {/* Download PDF Button */}
             <button
               type="button"
               disabled={isExportingPdf}
               onClick={handleDownloadPdf}
-              className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg shadow-xs transition-all cursor-pointer ${
+              className={`inline-flex items-center gap-1 px-2.5 sm:px-3.5 py-1.5 text-xs font-semibold rounded-lg shadow-xs transition-all cursor-pointer ${
                 downloadSuccess
                   ? 'bg-emerald-600 text-white'
                   : 'bg-emerald-700 hover:bg-emerald-600 text-white active:scale-95'
               }`}
-              title="Unduh langsung berkas PDF"
+              title="Unduh berkas PDF"
             >
               {isExportingPdf ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -142,10 +142,10 @@ export const ReceiptPreviewModal: React.FC<ReceiptPreviewModalProps> = ({
               )}
               <span>
                 {isExportingPdf
-                  ? 'Membuat PDF...'
+                  ? 'PDF...'
                   : downloadSuccess
-                  ? 'PDF Terunduh!'
-                  : 'Unduh PDF'}
+                  ? 'Selesai!'
+                  : 'PDF'}
               </span>
             </button>
 
@@ -153,8 +153,8 @@ export const ReceiptPreviewModal: React.FC<ReceiptPreviewModalProps> = ({
             <button
               type="button"
               onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg transition-colors cursor-pointer"
-              title="Cetak via printer atau dialog cetak browser"
+              className="inline-flex items-center gap-1 px-2 sm:px-3 py-1.5 text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg transition-colors cursor-pointer"
+              title="Cetak via printer"
             >
               <Printer className="w-3.5 h-3.5 text-slate-300" />
               <span className="hidden sm:inline">Cetak</span>
@@ -164,7 +164,7 @@ export const ReceiptPreviewModal: React.FC<ReceiptPreviewModalProps> = ({
             <button
               type="button"
               onClick={handleCopyWhatsApp}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1.5 text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg transition-colors cursor-pointer"
               title="Salin rekap teks untuk WhatsApp"
             >
               {copiedWA ? (
@@ -172,37 +172,25 @@ export const ReceiptPreviewModal: React.FC<ReceiptPreviewModalProps> = ({
               ) : (
                 <Share2 className="w-3.5 h-3.5" />
               )}
-              <span>{copiedWA ? 'Tersalin!' : 'Salin WA'}</span>
+              <span>{copiedWA ? 'Tersalin' : 'WA'}</span>
             </button>
-
-            {spreadsheetInfo && (
-              <a
-                href={spreadsheetInfo.url}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 rounded-lg transition-colors"
-                title="Buka data di Google Sheets"
-              >
-                <ExternalLink className="w-3.5 h-3.5" />
-                <span className="hidden md:inline">Sheets</span>
-              </a>
-            )}
 
             <button
               type="button"
               onClick={onClose}
-              className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors ml-1 cursor-pointer"
+              className="p-1 sm:p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors ml-0.5 cursor-pointer"
+              title="Tutup"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </div>
         </div>
 
         {/* Printable BAST Container */}
-        <div className="p-4 sm:p-8 overflow-y-auto flex-1 bg-slate-100/60 print:p-0 print:bg-white print:overflow-visible">
+        <div className="p-2 sm:p-8 overflow-y-auto flex-1 bg-slate-100/60 print:p-0 print:bg-white print:overflow-visible">
           <div
             id="printable-receipt"
-            className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sm:p-8 max-w-2xl mx-auto print:border-none print:shadow-none print:p-4 print:max-w-none text-slate-900"
+            className="bg-white rounded-xl border border-slate-200 shadow-sm p-3.5 sm:p-8 max-w-2xl mx-auto print:border-none print:shadow-none print:p-4 print:max-w-none text-slate-900"
           >
             {/* Kop Dokumen */}
             <div className="flex flex-col sm:flex-row items-start justify-between pb-4 border-b-2 border-slate-800 gap-4">
